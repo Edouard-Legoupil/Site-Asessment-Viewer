@@ -1,4 +1,4 @@
-//DTM Dashboard DRAFT
+Site Asessment Viewer
 =============
 
-CAR - Bangui 
+Credits: https://github.com/pierrelorioux/dtm_bangui 
