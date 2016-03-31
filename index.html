@@ -2,11 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="robots" content="noindex,follow">
+    <meta name="author" content="Edouard Legoupil @edouard_lgp">
+    <link rel="canonical" href="">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="">
+    <meta property="og:url" content=" ">
+    <meta property="og:site_name" content="">
+    <meta property="og:image" content="">
+    <link rel="shortlink" href="">
+    <meta name="description" content="">
     <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" name="viewport">
-    <title>DTM | Bangui</title>
+    <title>Site Assessment Viewer</title>
+    
+    <!-- Bootstrap --> 
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link  type="text/css"  rel="stylesheet" href="css/bootstrap.min.css" media="screen">
+    
+    <link rel="stylesheet" href="css/bootswatch.min.css">
+    <link rel="stylesheet" href="css/font-humanitarian.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
 
-    <!-- Bootstrap -->
-    <link type="text/css" rel="stylesheet" href="css/bootstrap.css">
     <link type="text/css" href="css/leaflet.css" rel="stylesheet"/>
     <link type="text/css" href="css/leaflet.markercluster.css" rel="stylesheet"/>
 
@@ -98,25 +119,55 @@
 
 
 <body>
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="index.html" class="navbar-brand">Site Assessment Viewer</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+        <!--
+          <ul class="nav navbar-nav">
+                <li><a href="#Parameters">Parameters</a></li
+           </ul>
+ -->
+          <ul class="nav navbar-nav navbar-right">
+           <!-- <li><a href="http://data.unhcr.org/" target="_blank">Data portal</a></li> -->
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+
+
     <div class="container">
-      <p id="title"><h3><span style="color:#C0392B">DRAFT  </span><img src="image/logos.png" height=40 align="bottom"></h3></p>
+    
+        <div class="row">
+          <div class="col-lg-12">
+          
+           <p id="title"><h3><span style="color:#C0392B">Explore field data!  </span> </h3></p>
                 <div >
-                    <h4>Suivi des personnes déplacées internes (PDI) à Bangui <small><a href="https://github.com/iomrowca/dtm_bangui/archive/master.zip">Telecharger la version OFFLINE de la carte</a></small></h4>
+                    <h4>Draft demo: <small><a href="https://github.com/Edouard-Legoupil/Site-Asessment-Viewer/archive/gh-pages.zip">Download OFFLINE Version</a></small></h4>
                     <div class="row">
                       <div id="map" class="col-md-2"></div>
                       <div id="info" style="display:none">
                         <div id="data"class="col-md-3">
-                          <div id='numbertot'><span><small>Total PDI : </small></span></div>
-                          <div id='numbertot_bfsept'><span><small>Total PDI avant sept 2015: </small></span></div>
-                          <div id='numbertot_afsept'><span><small>Total PDI après sept 2015: </small></span></div>
+                          <div id='numbertot'><span><small>Total IDPs : </small></span></div>
+                          <div id='numbertot_bfsept'><span><small>Total before: </small></span></div>
+                          <div id='numbertot_afsept'><span><small>Total after: </small></span></div>
                           <hr><br>
                           <span><small>Tendance </small></span><span id ="reset"><small><a>(Reset)</a></small></span><div id='evolution'></div>
-                          <hr><span style="font-style:italic"><small>Les sites en évidence sur la carte par un clignotement requièrent votre  attention</small></span>
+                          <hr><span style="font-style:italic"><small> </small></span>
                         </div>
                       </div>
                     </div>
                     <!--<div id="timeline"><h4><span class="filter"></span></h4></div>-->
                 </div>
+            </div>
+          </div>
         <br>
         <br>
         <br>
@@ -156,7 +207,7 @@
   //   needss=datag.Needs;
     //needs=needss.elements;
 
-$("#data").prepend("<br><small>Cliquer sur un site pour avoir le detail des besoins humanitaires</small><br><hr>");
+$("#data").prepend("<br><small>Click on the map to get info on needs</small><br><hr>");
 
   scsv = d3.dsv(';', "text/plain; charset=UTF-8");
 
@@ -174,8 +225,8 @@ $("#data").prepend("<br><small>Cliquer sur un site pour avoir le detail des beso
       dimi="Diminution",
       aug ="Augmentation",
       sta ="Stable"
-      if(chaincheck.indexOf(dimi) > -1){need_camp.Evolution="Diminution"}
-      else if(chaincheck.indexOf(aug) > -1){need_camp.Evolution="Augmentation"}
+      if(chaincheck.indexOf(dimi) > -1){need_camp.Evolution="Decreasing"}
+      else if(chaincheck.indexOf(aug) > -1){need_camp.Evolution="Increasing"}
       else if(chaincheck.indexOf(sta) > -1){need_camp.Evolution="Stable"}
       else{need_camp.Evolution="Autre"}
       //else{need_camp.Tendency="Other"}
@@ -426,9 +477,9 @@ function updateMapPoints() {
   dc.renderAll();
 
 
-   var OpenStreetMap_HOT = L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+   var OpenStreetMap_HOT = L.tileLayer('http://otile2.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
        maxZoom: 19,
-       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
+       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
    });
 
    var imageUrl = 'image/bangui_map.png',
@@ -495,7 +546,7 @@ function updateMapPoints() {
         L.DomEvent.stopPropagation(e);
       });
 
-      $(legendContainer).append("<h4 id='legendTitle'>Nombre de PDI</h4>");
+      $(legendContainer).append("<h4 id='legendTitle'>IDP #</h4>");
 
       for (var i = 0; i <= classes.length-1; i++) {
 
